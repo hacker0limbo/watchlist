@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ name }}'s Watchlist</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" type="text/css">
+</head>
+<body>
+    <h2>
+        <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='img/limbo_running.gif') }}">
+        {{ name }}'s Watchlist
+    </h2>
+    <p>{{ movies|length }} Titles</p>
+    <ul>
+        {% for movie in movies %}
+            <li>{{ movie.title }} - {{ movie.year }}</li>
+        {% endfor %}
+    </ul>
+    <img alt="Limbo Animation" class="limbo-animation" src="{{ url_for('static', filename='img/limbo_animation.gif') }}">
+    <footer>
+        <small>&copy; 2019 <a href="/">Watch List</a></small>
+    </footer>
+</body>
+</html>
