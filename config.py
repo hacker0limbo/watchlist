@@ -10,6 +10,7 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///db/data.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = True
 
 
