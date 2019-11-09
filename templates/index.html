@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>{{ name }}'s Watchlist</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" type="text/css">
-</head>
-<body>
-    <h2>
-        <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='img/limbo_running.gif') }}">
-        {{ name }}'s Watchlist
-    </h2>
-    <p>{{ movies|length }} Titles</p>
-    <ul>
-        {% for movie in movies %}
-            <li>{{ movie.title }} - {{ movie.year }}</li>
-        {% endfor %}
-    </ul>
-    <img alt="Limbo Animation" class="limbo-animation" src="{{ url_for('static', filename='img/limbo_animation.gif') }}">
-    <footer>
-        <small>&copy; 2019 <a href="/">Watch List</a></small>
-    </footer>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<p>{{ movies|length }} Titles</p>
+<ul class="movie-list">
+    {% for movie in movies %}
+    <li>{{ movie.title }} - {{ movie.year }}
+        <span class="float-right">
+            <a class="douban" href="https://movie.douban.com/subject_search?search_text={{ movie.title }}"
+               target="_blank" title="Find this movie on IMDb">douban</a>
+            <a class="imdb" href="https://www.imdb.com/find?q={{ movie.title }}" target="_blank"
+               title="Find this movie on IMDb">IMDb</a>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+<img alt="Limbo animation" class="limbo-animation" src="{{ url_for('static', filename='img/limbo_shake.gif') }}"
+     title="to~to~ro~">
+{% endblock %}
