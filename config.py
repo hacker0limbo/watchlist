@@ -2,6 +2,7 @@ class Config:
     DEBUG = False
     TESTING = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class ProductionConfig(Config):
@@ -10,7 +11,6 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///db/data.db'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEBUG = True
 
 
