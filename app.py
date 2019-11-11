@@ -1,6 +1,7 @@
 from flask import Flask
 from routes.index import router as index_routes
 from routes.error import page_not_found
+from routes.api.v1 import router as api_routes
 from models.base_model import db
 from commands import initdb, forge
 from context import register_context
@@ -8,6 +9,7 @@ from context import register_context
 
 def register_routes(app):
     app.register_blueprint(index_routes)
+    app.register_blueprint(api_routes, url_prefix='/api/v1')
     # error pages
     app.register_error_handler(404, page_not_found)
 
@@ -17,6 +19,8 @@ def config_app(app):
         app.config.from_object("config.ProductionConfig")
     else:
         app.config.from_object("config.DevelopmentConfig")
+        # 自动 reload 模板引擎
+        app.jinja_env.auto_reload = True
     print(f'ENV is set to: {app.config["ENV"]}')
 
 

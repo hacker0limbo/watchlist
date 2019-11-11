@@ -4,7 +4,7 @@ from models.movie import Movie
 router = Blueprint('index_bp', __name__)
 
 
-@router.route('/')
+@router.route('/', methods=['GET'])
 def index():
-    movies = Movie.query.all()
+    movies = Movie.all()
     return render_template('index.html', movies=movies)

@@ -56,7 +56,7 @@ class TestApp(unittest.TestCase):
         data = response.get_data(as_text=True)
         self.assertIn('Page Not Found - 404', data)
         self.assertIn('Go Back', data)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(404, response.status_code)
 
 
 if __name__ == '__main__':

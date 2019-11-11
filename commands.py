@@ -37,12 +37,11 @@ def forge():
         {'title': 'The Pork of Music', 'year': '2012'},
     ]
 
-    User.new({
-        'name': name
-    })
+    User.new({'name': name})
     for m in movies:
-        Movie.new({
+        form = {
             'title': m['title'],
             'year': m['year'],
-        })
+        }
+        Movie.new(form)
     click.echo('Mock data generated.')

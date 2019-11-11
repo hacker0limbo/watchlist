@@ -1,7 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>{{ movies|length }} Titles</p>
+<h3>Add New Movie</h3>
+<form method="post" action="{{ url_for('api_v1_bp.new_movie') }}" style="text-align: center;">
+    Title <input type="text" name="title" autocomplete="off" required>
+    Year <input type="text" name="year" autocomplete="off" required>
+    <input class="btn" type="submit" name="submit" value="Add">
+</form>
+
+<p>{{ movies|length }} Movies</p>
+
 <ul class="movie-list">
     {% for movie in movies %}
     <li>{{ movie.title }} - {{ movie.year }}

@@ -12,6 +12,7 @@ class ProductionConfig(Config):
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///db/data.db'
     DEBUG = True
+    SECRET_KEY = b'_5#y2L"F4Q8z\n\xec]/'
 
 
 class TestingConfig(Config):
