@@ -3,7 +3,7 @@ from routes.index import router as index_routes
 from routes.error import page_not_found
 from routes.api.v1 import router as api_routes
 from models.base_model import db
-from commands import initdb, forge
+from commands import initdb, forge, test
 from context import register_context
 
 
@@ -27,6 +27,7 @@ def config_app(app):
 def register_commands(app):
     app.cli.add_command(initdb)
     app.cli.add_command(forge)
+    app.cli.add_command(test)
 
 
 def create_app():

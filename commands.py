@@ -4,7 +4,6 @@ from models.base_model import db
 from models.user import User
 from models.movie import Movie
 
-
 # 使用 click + with_appcontext 防止循环引用
 @click.command()
 @click.option('--drop', is_flag=True, help='Create after drop')
@@ -45,3 +44,19 @@ def forge():
         }
         Movie.new(form)
     click.echo('Mock data generated.')
+
+
+@click.command()
+@with_appcontext
+def test():
+    """运行测试"""
+    import unittest
+    from tests.test_app import TestApp
+    from tests.test_db import TestDb
+    suite = unittest.TestSuite()
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestDb))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestApp))
+    runner = unittest.TextTestRunner(verbosity=2)
+    runner.run(suite)
+
+    click.echo('All tests finished')

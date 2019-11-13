@@ -36,3 +36,12 @@ $ flask run
 ## 关于测试
 - http://kronosapiens.github.io/blog/2014/08/14/understanding-contexts-in-flask.html
 - https://stackoverflow.com/questions/17375340/testing-code-that-requires-a-flask-app-or-request-context
+
+## 关于 api 设计的参考
+- https://stackoverflow.com/questions/28795561/support-multiple-api-versions-in-flask
+
+## 关于将 orm 实例转成 dict 对象
+- https://stackoverflow.com/a/30280750
+
+## 关于重写 __hash__ 和 __eq__
+- https://stackoverflow.com/questions/1227121/compare-object-instances-for-equality-by-their-attributes

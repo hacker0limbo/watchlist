@@ -27,7 +27,7 @@ class TestApp(unittest.TestCase):
         db.create_all()
 
         user = User(name='test')
-        movie = Movie(title='Test Movie Title', year='2019')
+        movie = Movie.new(title='Test Movie Title', year='2019')
         db.session.add_all([user, movie])
         db.session.commit()
 
@@ -57,7 +57,3 @@ class TestApp(unittest.TestCase):
         self.assertIn('Page Not Found - 404', data)
         self.assertIn('Go Back', data)
         self.assertEqual(404, response.status_code)
-
-
-if __name__ == '__main__':
-    unittest.main()
