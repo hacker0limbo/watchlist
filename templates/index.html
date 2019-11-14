@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Add New Movie</h3>
+<h3>Home</h3>
+<hr/>
+<h4 style="text-align: center">Add New Movie</h4>
 <form method="post" action="{{ url_for('api_v1_bp.new_movie') }}" style="text-align: center;">
     Title <input type="text" name="title" autocomplete="off" required>
     Year <input type="text" name="year" autocomplete="off" required>

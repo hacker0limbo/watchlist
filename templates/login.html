@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Login</h3>
+<hr/>
+<h4 style="text-align: center">Login with your username and password</h4>
+<form method="post" action="/login" style="text-align: center;">
+    Username:
+    <input type="text" name="username" required><br><br>
+    Password:
+    <input type="password" name="password" required><br><br>
+    <input class="btn btn-primary" type="submit" name="submit" value="Login">
+</form>
+
+<p style="text-align: center;">
+    <small>
+        New here? Go to <a href="#">Signup</a> page to register a new account.
+    </small>
+</p>
+{% endblock %}

@@ -4,7 +4,7 @@
     {% block head %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ user.name }}'s Watchlist</title>
+    <title>{{ author_name_en }}'s Watchlist</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" type="text/css">
     {% endblock %}
 </head>
@@ -23,16 +23,22 @@
 
 <h2>
     <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='img/limbo_run.gif') }}">
-    {{ user.name }}'s Watchlist
+    {{ author_name_en }}'s Watchlist
 </h2>
 <nav>
     <ul>
         <li><a href="{{ url_for('index_bp.index') }}">Home</a></li>
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('index_bp.settings') }}">Settings</a></li>
+        <li><a href="{{ url_for('index_bp.logout') }}">Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('index_bp.login') }}">Login</a></li>
+        {% endif %}
     </ul>
 </nav>
 {% block content %}{% endblock %}
 <footer>
-    <small>&copy; {{ author_name }} <a href="https://github.com/hacker0limbo/watchlist">Watch List</a></small>
+    <small>&copy; {{ author_name_zh }} <a href="https://github.com/hacker0limbo/watchlist">Watch List</a></small>
 </footer>
 
 <script src="{{ url_for('static', filename='index.js')}}"></script>

@@ -1,9 +1,11 @@
 from flask import Flask
+from flask_login import LoginManager
+
 from routes.index import router as index_routes
 from routes.error import page_not_found
 from routes.api.v1 import router as api_routes
 from models.base_model import db
-from commands import initdb, forge, test
+from commands import initdb, forge, test, new_user
 from context import register_context
 
 
@@ -28,13 +30,33 @@ def register_commands(app):
     app.cli.add_command(initdb)
     app.cli.add_command(forge)
     app.cli.add_command(test)
+    app.cli.add_command(new_user)
+
+
+def init_app(app):
+    db.init_app(app)
+
+    from models.user import User
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+    # 设置未登录时跳转到登录页面, 以及 flash message
+    login_manager.login_view = 'index_bp.login'
+    login_manager.login_message = 'Please log in first.'
+    login_manager.login_message_category = 'danger'
+
+    # 提供回调函数用于重新加载在 session 里面的用户
+    @login_manager.user_loader
+    def load_user(user_id):
+        # 用 ID 作为 User 模型的主键查询对应的用户
+        user = User.query.get(int(user_id))
+        return user
 
 
 def create_app():
     # 使用工厂模式注册 app
     app = Flask(__name__)
     config_app(app)
-    db.init_app(app)
+    init_app(app)
     # 注册路由, 上下文, 命令
     register_routes(app)
     register_context(app)

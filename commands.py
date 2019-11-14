@@ -22,7 +22,9 @@ def initdb(drop):
 @with_appcontext
 def forge():
     """产生 mock 数据"""
-    name = 'Limboer'
+    username = 'test'
+    password = '123'
+
     movies = [
         {'title': 'My Neighbor Totoro', 'year': '1988'},
         {'title': 'Dead Poets Society', 'year': '1989'},
@@ -36,7 +38,10 @@ def forge():
         {'title': 'The Pork of Music', 'year': '2012'},
     ]
 
-    User.new({'name': name})
+    # 生成一个测试用户
+    u = User.new(username=username)
+    u.set_hash_password(password)
+
     for m in movies:
         form = {
             'title': m['title'],
@@ -60,3 +65,15 @@ def test():
     runner.run(suite)
 
     click.echo('All tests finished')
+
+
+@click.command()
+@click.option('--username', prompt=True, help='The username used to login.')
+@click.option('--password', prompt=True, hide_input=True, confirmation_prompt=True, help='The password used to login.')
+@with_appcontext
+def new_user(username, password):
+    """手动生成新的用户数据"""
+    click.echo('Creating new user...')
+    user = User.new(username=username)
+    user.set_hash_password(password)
+    click.echo('Done.')

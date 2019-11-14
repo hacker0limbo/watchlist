@@ -26,7 +26,8 @@ class TestApp(unittest.TestCase):
         # 手动生成数据库表 schema
         db.create_all()
 
-        user = User(name='test')
+        user = User(username='test1')
+        user.set_hash_password('test1')
         movie = Movie.new(title='Test Movie Title', year='2019')
         db.session.add_all([user, movie])
         db.session.commit()
