@@ -4,7 +4,7 @@
 
 ## 项目截图
 
-![demo](demo/watchlist_demo.gif)
+![demo](demo/watchlist_demo.png)
 
 ## 项目结构
 
