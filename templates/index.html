@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Home</h3>
+<h3>&#127968; Home</h3>
 <hr/>
+{% if current_user.is_authenticated %}
 <h4 style="text-align: center">Add New Movie</h4>
 <form method="post" action="{{ url_for('api_v1_bp.new_movie') }}" style="text-align: center;">
     Title <input type="text" name="title" autocomplete="off" required>
@@ -19,9 +20,12 @@
             {{ movie.title }} - {{ movie.year }}
         </span>
         <span class="float-right">
+            <!-- 如果用户是 admin 用户, 有权利进行修改, 删除, 否则只能进行增加操作 -->
+            {% if current_user.is_admin %}
             <button class="btn btn-info btn-edit">Edit</button>
             <button class="btn btn-danger btn-delete">Delete</button>
             <span>|</span>
+            {% endif %}
             <a class="douban" href="https://movie.douban.com/subject_search?search_text={{ movie.title }}"
                target="_blank" title="Find this movie on IMDb">douban</a>
             <a class="imdb" href="https://www.imdb.com/find?q={{ movie.title }}" target="_blank"
@@ -30,6 +34,12 @@
     </li>
     {% endfor %}
 </ul>
+{% else %}
+<h4>
+    <a href="{{ url_for('index_bp.login') }}">Login </a> to check out more,
+    or you can <a href="{{ url_for('index_bp.signup') }}">sign up</a> to create a new account!
+</h4>
+{% endif %}
 <img alt="Limbo animation" class="limbo-animation" src="{{ url_for('static', filename='img/limbo_shake.gif') }}"
      title="to~to~ro~">
 {% endblock %}

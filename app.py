@@ -1,17 +1,22 @@
 from flask import Flask
 from flask_login import LoginManager
+from flask_uploads import configure_uploads, patch_request_class
 
 from routes.index import router as index_routes
 from routes.error import page_not_found
 from routes.api.v1 import router as api_routes
+from routes.settings import router as settings_routes, avatars
 from models.base_model import db
-from commands import initdb, forge, test, new_user
+from commands import initdb, forge, test, new_user, coverage
 from context import register_context
+
+login_manager = LoginManager()
 
 
 def register_routes(app):
     app.register_blueprint(index_routes)
     app.register_blueprint(api_routes, url_prefix='/api/v1')
+    app.register_blueprint(settings_routes, url_prefix='/settings')
     # error pages
     app.register_error_handler(404, page_not_found)
 
@@ -31,18 +36,23 @@ def register_commands(app):
     app.cli.add_command(forge)
     app.cli.add_command(test)
     app.cli.add_command(new_user)
+    app.cli.add_command(coverage)
 
 
 def init_app(app):
     db.init_app(app)
 
     from models.user import User
-    login_manager = LoginManager()
     login_manager.init_app(app)
     # 设置未登录时跳转到登录页面, 以及 flash message
     login_manager.login_view = 'index_bp.login'
     login_manager.login_message = 'Please log in first.'
     login_manager.login_message_category = 'danger'
+
+    # 文件上传配置
+    configure_uploads(app, avatars)
+    # 设置文件上传大小
+    patch_request_class(app)
 
     # 提供回调函数用于重新加载在 session 里面的用户
     @login_manager.user_loader

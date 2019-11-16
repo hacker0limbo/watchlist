@@ -45,3 +45,9 @@ $ flask run
 
 ## 关于重写 __hash__ 和 __eq__
 - https://stackoverflow.com/questions/1227121/compare-object-instances-for-equality-by-their-attributes
+
+## 关于 flask-login 项目的基本操作
+- https://scotch.io/tutorials/authentication-and-authorization-with-flask-login
+
+## 关于 flask-uploads 上传文件的实例
+- https://zhuanlan.zhihu.com/p/23731819

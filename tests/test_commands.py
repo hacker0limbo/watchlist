@@ -2,11 +2,12 @@ import unittest
 from app import create_app, db
 from models.user import User
 from models.movie import Movie
+from commands import forge, initdb
 
 app = create_app()
 
 
-class TestApp(unittest.TestCase):
+class TestCommands(unittest.TestCase):
     """test application functionality"""
 
     @classmethod
@@ -25,12 +26,6 @@ class TestApp(unittest.TestCase):
         # 手动生成数据库表 schema
         db.create_all()
 
-        user = User.new(username='test1')
-        user.set_hash_password('test1')
-        movie = Movie.new(title='Test Movie Title', year='2019')
-        db.session.add_all([user, movie])
-        db.session.commit()
-
         self.client = app.test_client()
         self.runner = app.test_cli_runner()
 
@@ -39,10 +34,13 @@ class TestApp(unittest.TestCase):
         db.drop_all()
         self.ctx.pop()
 
-    # 测试错误页面
-    def test_404_page(self):
-        response = self.client.get('/nothing')
-        data = response.get_data(as_text=True)
-        self.assertIn('Page Not Found - 404', data)
-        self.assertIn('Go Back', data)
-        self.assertEqual(404, response.status_code)
+    # 测试命令
+    def test_initdb_command(self):
+        result = self.runner.invoke(initdb)
+        self.assertIn('Initialized database.', result.output)
+        self.assertEqual(0, User.query.count())
+
+    def test_forge_command(self):
+        result = self.runner.invoke(forge)
+        self.assertIn('Mock data generated.', result.output)
+        self.assertNotEqual(0, Movie.query.count())

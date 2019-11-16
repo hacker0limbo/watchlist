@@ -30,7 +30,13 @@ nav li a {
 }
 
 nav li a:hover {
-    background-color: #111;
+    background-color: #ddd;
+    color: black;
+}
+
+nav li .active {
+    background-color: #ddd;
+    color: #007bff;
 }
 
 a {

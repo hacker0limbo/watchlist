@@ -3,6 +3,7 @@ class Config:
     TESTING = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    UPLOADED_AVATARS_DEST = 'static/img/uploads'
 
 
 class ProductionConfig(Config):

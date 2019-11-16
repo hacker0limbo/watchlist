@@ -2,6 +2,7 @@ from flask import url_for, redirect, flash, request, jsonify
 from routes.api.v1 import router
 from models.movie import Movie
 from flask_login import login_required
+from routes import admin_required
 
 
 @router.route('/movie', methods=['GET'])
@@ -10,6 +11,7 @@ def get_movies():
 
 
 @router.route('/movie/<int:movie_id>', methods=['GET'])
+@admin_required
 def get_movie(movie_id):
     movie = Movie.get_by_id(movie_id)
     return jsonify(movie.to_dict())
@@ -32,6 +34,7 @@ def new_movie():
 
 @router.route('/movie/<int:movie_id>', methods=['PUT'])
 @login_required
+@admin_required
 def update_movie(movie_id):
     form = request.get_json()
     title = form.get('title', None)
@@ -48,6 +51,7 @@ def update_movie(movie_id):
 
 @router.route('/movie/<int:movie_id>', methods=['DELETE'])
 @login_required
+@admin_required
 def delete_movie(movie_id):
     deleted_movie = Movie.get_by_id(movie_id)
     Movie.delete_by_id(movie_id)

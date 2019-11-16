@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from models.movie import Movie
 from models.user import User
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_user, login_required, logout_user
 
 router = Blueprint('index_bp', __name__)
 
@@ -26,7 +26,7 @@ def login():
         if user is not None:
             # 说明用户存在, 验证登录成功
             login_user(user)
-            flash('Login success.', 'success')
+            flash('Login successfully.', 'success')
             return redirect(url_for('index_bp.index'))
         else:
             flash('username or password is wrong, please try again.', 'danger')
@@ -43,19 +43,16 @@ def logout():
     return redirect(url_for('index_bp.index'))
 
 
-@router.route('/settings', methods=['GET', 'POST'])
-@login_required
-def settings():
+@router.route('/signup', methods=['GET', 'POST'])
+def signup():
     if request.method == 'POST':
-        new_password = request.form['new-password']
-        password_confirm = request.form['password-confirm']
-        if new_password != password_confirm:
-            # 后端检查两次密码输入是否一致
-            flash('Two password input have to be the same', 'danger')
-            return redirect(url_for('index_bp.settings'))
+        form = request.form.to_dict()
+        user = User.register(form)
+        if user is None:
+            flash('The username has already been registered, please try a new one.', 'warning')
+            return redirect(url_for('index_bp.signup'))
+        else:
+            flash('Registration successfully!', 'success')
+            return redirect(url_for('index_bp.login'))
 
-        current_user.set_hash_password(new_password)
-        flash('Password successfully updated', 'success')
-        return redirect(url_for('index_bp.settings'))
-
-    return render_template('settings.html')
+    return render_template('signup.html')

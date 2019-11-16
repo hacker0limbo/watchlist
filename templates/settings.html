@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Settings</h3>
+<h3>&#9881; Settings</h3>
+
 <hr/>
-<h4 style="text-align: center">You can update your personal information here</h4>
-<form method="post" action="/settings" style="text-align: center">
+<h4 style="text-align: center">
+    Update your password
+</h4>
+<form method="post" action="{{ url_for('settings_bp.reset_password') }}" style="text-align: center">
     New password: <input type="password" name="new-password" autocomplete="off" required value=""><br/><br/>
     Confirmation: <input type="password" name="password-confirm" autocomplete="off" required value=""><br/><br/>
     <input class="btn btn-primary" type="submit" name="submit" value="Update">
 </form>
+
+<hr/>
+<h4 style="text-align: center">
+    Update your avatar
+</h4>
+<form method="post" action="{{ url_for('settings_bp.upload_avatar') }}" enctype="multipart/form-data"
+      style="text-align: center">
+    <input type="file" name="avatar"><br/><br/>
+    <input type="submit" class="btn btn-info" value="Upload">
+</form>
+
 {% endblock %}

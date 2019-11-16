@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Login</h3>
+<h3>&#128682; Login</h3>
 <hr/>
 <h4 style="text-align: center">Login with your username and password</h4>
-<form method="post" action="/login" style="text-align: center;">
+<form method="post" action="{{ url_for('index_bp.login') }}" style="text-align: center;">
     Username:
     <input type="text" name="username" required><br><br>
     Password:
@@ -14,7 +14,7 @@
 
 <p style="text-align: center;">
     <small>
-        New here? Go to <a href="#">Signup</a> page to register a new account.
+        New here? Go to <a href="{{ url_for('index_bp.signup') }}">Signup</a> page to register a new account.
     </small>
 </p>
 {% endblock %}

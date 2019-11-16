@@ -24,15 +24,27 @@
 <h2>
     <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='img/limbo_run.gif') }}">
     {{ author_name_en }}'s Watchlist
+
+    {% if current_user.is_authenticated %}
+    <span class="float-right">
+        <img
+                src="{{ url_for('static', filename='img/uploads/') }}{{ current_user.avatar }}"
+                width="50"
+        />
+        <span style="color: #007bff;">{{ current_user.username }}</span>
+    </span>
+    {% endif %}
+
 </h2>
 <nav>
     <ul>
         <li><a href="{{ url_for('index_bp.index') }}">Home</a></li>
         {% if current_user.is_authenticated %}
-        <li><a href="{{ url_for('index_bp.settings') }}">Settings</a></li>
+        <li><a href="{{ url_for('settings_bp.index') }}">Settings</a></li>
         <li><a href="{{ url_for('index_bp.logout') }}">Logout</a></li>
         {% else %}
         <li><a href="{{ url_for('index_bp.login') }}">Login</a></li>
+        <li><a href="{{ url_for('index_bp.signup') }}">Signup</a></li>
         {% endif %}
     </ul>
 </nav>

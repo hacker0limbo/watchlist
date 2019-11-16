@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>&#128394; Signup</h3>
+<hr/>
+<h4 style="text-align: center">Register a new account</h4>
+<form method="post" action="{{ url_for('index_bp.signup') }}" style="text-align: center;">
+    Username:
+    <input type="text" name="username" autocomplete="off" required><br><br>
+    Password:
+    <input type="password" name="password" autocomplete="off" required><br><br>
+    <input class="btn btn-primary" type="submit" name="submit" value="Register">
+</form>
+
+<p style="text-align: center;">
+    <small>
+        Already got an account? <a href="{{ url_for('index_bp.login') }}">Login</a> to check out more content!
+    </small>
+</p>
+{% endblock %}

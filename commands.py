@@ -1,5 +1,7 @@
 import click
+from coverage import Coverage
 from flask.cli import with_appcontext
+
 from models.base_model import db
 from models.user import User
 from models.movie import Movie
@@ -22,8 +24,8 @@ def initdb(drop):
 @with_appcontext
 def forge():
     """产生 mock 数据"""
-    username = 'test'
-    password = '123'
+    username = 'admin'
+    password = 'admin'
 
     movies = [
         {'title': 'My Neighbor Totoro', 'year': '1988'},
@@ -58,9 +60,13 @@ def test():
     import unittest
     from tests.test_app import TestApp
     from tests.test_db import TestDb
+    from tests.test_commands import TestCommands
+
     suite = unittest.TestSuite()
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestDb))
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestApp))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestCommands))
+
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
 
@@ -77,3 +83,25 @@ def new_user(username, password):
     user = User.new(username=username)
     user.set_hash_password(password)
     click.echo('Done.')
+
+
+@click.command()
+@click.option('--html', is_flag=True, help='generate html report')
+@click.pass_context
+@with_appcontext
+def coverage(ctx, html):
+    """输出覆盖率测试"""
+    cov = Coverage(
+        source=["app", "commands", "routes/", "models"],
+        omit=["*__init__*"])
+    cov.start()
+    # 触发测试命令
+    ctx.invoke(test)
+    cov.stop()
+    cov.save()
+
+    click.echo('Coverage summary:')
+    cov.report()
+    if html:
+        cov.html_report(directory="reports/coverage/")
+    cov.erase()

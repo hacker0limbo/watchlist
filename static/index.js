@@ -106,10 +106,27 @@ const bindMovieEdit = () => {
   }
 }
 
+const bindActiveNav = () => {
+  const pathname = window.location.pathname
+  const headPath = '/' + pathname.split('/')[1]
+  const navs = document.querySelectorAll('nav ul a')
+  for (const nav of navs) {
+    if (headPath == nav.getAttribute('href')) {
+      nav.classList.add('active')
+    } else {
+      if (nav.classList.contains('active')) {
+        nav.classList.remove('active')
+      }
+    }
+  }
+}
+
 const main = () => {
   bindFlashClose()
   bindMovieDelete()
   bindMovieEdit()
+
+  bindActiveNav()
 }
 
 main()
