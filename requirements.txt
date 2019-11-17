@@ -34,3 +34,6 @@ Werkzeug == 0.15.5
 
 # commands.py: 2
 coverage == 4.5.4
+
+# wsgi.py: 3
+python_dotenv == 0.10.3

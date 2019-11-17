@@ -1,3 +1,5 @@
+import os
+
 class Config:
     DEBUG = False
     TESTING = False
@@ -8,7 +10,8 @@ class Config:
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql://user@localhost/foo'
+    SQLALCHEMY_DATABASE_URI = f'sqlite:///db/{os.getenv("DATABASE_FILE", "data.db")}'
+    SECRET_KEY = os.getenv('SECRET_KEY', 'dev')
 
 
 class DevelopmentConfig(Config):
