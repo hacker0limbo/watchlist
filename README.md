@@ -98,6 +98,20 @@ Done.
 ### 项目基本
 - [helloflask](https://read.helloflask.com/), 基础部分均参考于此
 
+### 部署
+- `.flaskenv` 文件需要修改 FLASK_ENV=production
+- 安装依赖的时候需要加上 `--user`, 如: `pip3 install --user -r requirements.txt`
+- 编辑 wsgi 文件的时候需要从项目的`wsgi`(WSGI configuration file)里面导入, 例如我的为:
+  ```python
+  import sys
+
+  path = '/home/limboer/watchlist'
+  if path not in sys.path:
+      sys.path.insert(0, path)
+
+  from wsgi import app as application
+  ```
+
 ### 问题记录
 
 - 关于 flask config 文件配置
@@ -115,3 +129,4 @@ Done.
   - https://scotch.io/tutorials/authentication-and-authorization-with-flask-login
 - 关于 flask-uploads 上传文件的实例
   - https://zhuanlan.zhihu.com/p/23731819
+
