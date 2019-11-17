@@ -61,11 +61,17 @@ def test():
     from tests.test_app import TestApp
     from tests.test_db import TestDb
     from tests.test_commands import TestCommands
+    from tests.test_index_page import TestIndexPage
+    from tests.test_settings_page import TestSettingsPage
+    from tests.test_error_page import TestErrorPage
 
     suite = unittest.TestSuite()
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestDb))
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestApp))
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestCommands))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestIndexPage))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestSettingsPage))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestErrorPage))
 
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

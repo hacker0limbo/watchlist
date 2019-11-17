@@ -11,7 +11,6 @@ def get_movies():
 
 
 @router.route('/movie/<int:movie_id>', methods=['GET'])
-@admin_required
 def get_movie(movie_id):
     movie = Movie.get_by_id(movie_id)
     return jsonify(movie.to_dict())

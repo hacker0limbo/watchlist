@@ -68,7 +68,7 @@ Commands:
 
 #### flask initdb [--drop]
 - `flask initdb`: 用于初始化数据库表结构
-- `flask initdb`: --drop` drop 已有的表, 重新生成数据库与表结构
+- `flask initdb --drop`: drop 已有的表, 重新生成数据库与表结构
 
 #### flask forge
 - `flask forge`: 用于生成 mock 数据, 包括 **admin 用户**和**电影信息**

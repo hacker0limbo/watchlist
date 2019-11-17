@@ -4,6 +4,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_AVATARS_DEST = 'static/img/uploads'
+    SECRET_KEY = 'watchlist'
 
 
 class ProductionConfig(Config):

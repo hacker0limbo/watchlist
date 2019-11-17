@@ -29,7 +29,7 @@ def login():
             flash('Login successfully.', 'success')
             return redirect(url_for('index_bp.index'))
         else:
-            flash('username or password is wrong, please try again.', 'danger')
+            flash('Username or password is wrong, please try again.', 'danger')
             return redirect(url_for('index_bp.login'))
 
     return render_template('login.html')
