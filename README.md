@@ -1,6 +1,6 @@
 # watch list
 
-使用 flask 完成的电影列表项目
+使用 flask 完成的电影列表项目, 查看 [demo](http://limboer.pythonanywhere.com/)
 
 ## 项目截图
 
