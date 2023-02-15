@@ -30,7 +30,7 @@ Flask_SQLAlchemy == 2.4.1
 Flask_Uploads == 0.2.1
 
 # models/user.py: 3
-Werkzeug == 0.15.5
+Werkzeug == 2.2.3
 
 # commands.py: 2
 coverage == 4.5.4
