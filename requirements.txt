@@ -12,7 +12,7 @@ Click == 7.0
 # routes/error.py: 1
 # routes/index.py: 1
 # routes/settings.py: 1
-Flask == 1.1.1
+Flask == 2.3.2
 
 # app.py: 2
 # models/user.py: 4
